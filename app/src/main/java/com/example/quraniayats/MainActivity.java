@@ -30,19 +30,56 @@ public class MainActivity extends AppCompatActivity {
         ayats = findViewById(R.id.AyatDisplayView);
         EnglishParahName = findViewById(R.id.englishParahName);
 
+
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(paraNUm.getText().equals("") && ayatNum.getText().equals(""))
+                if(paraNUm.getText().length() == 0 && ayatNum.getText().length() == 0)
                 {
-                    paraNUm.setText("!!");
+                    ayats.setText("[+]");
                 }
-                else if(paraNUm.getText() != "" && ayatNum.getText() == "")
+                else if(paraNUm.getText().length() > 0 && ayatNum.getText().length() == 0)
                 {
-                    paraNUm.setText("!!!!!");
+                    QDH QuranMetaData = new QDH();
+                    int valP = Integer.parseInt(paraNUm.getText().toString());
+
+                    if (valP < 1 || valP > 30){
+                    }
+                    else {
+                        QuranArabicText qat = new QuranArabicText();
+                        int startP = QuranMetaData.getParahStart(valP-1)-1;
+                        if(valP == 30)
+                        {
+                            int limitEnd = 6348;
+
+                            String AS = "";
+                            for(int i = startP; i < limitEnd; i++)
+                            {
+                                AS += qat.QuranArabicText[i] + " ";
+                            }
+
+                            parahName.setText(QuranMetaData.ParahName[valP-1]);
+                            EnglishParahName.setText(QuranMetaData.englishParahName[valP-1]);
+                            ayats.setText(AS);
+                        }
+                        else {
+                            int countOfAyatsInParah = QuranMetaData.getParahStart(valP)-QuranMetaData.getParahStart(valP-1);
+
+                            String AS = "";
+                            for(int i = startP; i < startP+countOfAyatsInParah; i++)
+                            {
+                                AS += qat.QuranArabicText[i] + " ";
+                            }
+
+                            parahName.setText(QuranMetaData.ParahName[valP-1]);
+                            EnglishParahName.setText(QuranMetaData.englishParahName[valP-1]);
+                            ayats.setText(AS);
+                        }
+                    }
                 }
                 else
                 {
+                    QDH QuranMetaData = new QDH();
                     int valP = Integer.parseInt(paraNUm.getText().toString());
                     int valA = Integer.parseInt(ayatNum.getText().toString())-1;
 
@@ -51,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else {
                         QuranArabicText qat = new QuranArabicText();
-                        int startP = new QDH().getParahStart(valP-1)-1 + valA;
+                        int startP = QuranMetaData.getParahStart(valP-1)-1 + valA;
                         if(valP == 30)
                         {
                             int limitEnd = 6348;
@@ -59,15 +96,15 @@ public class MainActivity extends AppCompatActivity {
                             String AS = "";
                             for(int i = startP; i < limitEnd; i++)
                             {
-                                AS += qat.QuranArabicText[i];
+                                AS += qat.QuranArabicText[i] + " ";
                             }
 
-                            parahName.setText(new QDH().ParahName[valP-1]);
-                            EnglishParahName.setText(new QDH().englishParahName[valP-1]);
+                            parahName.setText(QuranMetaData.ParahName[valP-1]);
+                            EnglishParahName.setText(QuranMetaData.englishParahName[valP-1]);
                             ayats.setText(AS);
                         }
                         else {
-                            int countOfAyatsInParah = new QDH().getParahStart(valP)-new QDH().getParahStart(valP-1);
+                            int countOfAyatsInParah = QuranMetaData.getParahStart(valP)-QuranMetaData.getParahStart(valP-1);
 
                             String AS = "";
                             for(int i = startP; i < startP+countOfAyatsInParah-valA; i++)
@@ -75,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
                                 AS += qat.QuranArabicText[i] + " ";
                             }
 
-                            parahName.setText(new QDH().ParahName[valP-1]);
-                            EnglishParahName.setText(new QDH().englishParahName[valP-1]);
+                            parahName.setText(QuranMetaData.ParahName[valP-1]);
+                            EnglishParahName.setText(QuranMetaData.englishParahName[valP-1]);
                             ayats.setText(AS);
                         }
                     }
