@@ -67,6 +67,7 @@
             android:enabled="false"
             android:gravity="start|top"
             android:inputType="textMultiLine"
+            android:minHeight="48dp"
             android:scrollbars="vertical"
             android:textColor="#FBF1E9E9"
             android:textSize="24sp"
@@ -143,6 +144,7 @@
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:textColor="#EAE4E4"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -151,5 +153,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.406" />
+
+    <Button
+        android:id="@+id/buttonGit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="13dp"
+        android:text="G"
+        app:layout_constraintBottom_toTopOf="@+id/ParahDisplayView"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

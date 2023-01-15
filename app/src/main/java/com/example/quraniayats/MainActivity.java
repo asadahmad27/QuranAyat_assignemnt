@@ -4,7 +4,9 @@ import static java.security.AccessController.getContext;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public TextView parahName;
     public TextView EnglishParahName;
     public TextView ayats;
+    Button github;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         parahName = findViewById(R.id.ParahDisplayView);
         ayats = findViewById(R.id.AyatDisplayView);
         EnglishParahName = findViewById(R.id.englishParahName);
+        github = findViewById(R.id.buttonGit);
 
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +122,17 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
+            }
+        });
+
+        github.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String url = "https://github.com/ghufran2508/QuraniAcademy/commits/master";
+                Uri webpage = Uri.parse(url);
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                startActivity(intent);
             }
         });
     }
